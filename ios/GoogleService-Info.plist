@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>413993740440-07ldh2k30sl3sfgo4ocb1qp0o19qmj14.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.413993740440-07ldh2k30sl3sfgo4ocb1qp0o19qmj14</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>413993740440-lqnpe1du03d8597u1kvfav35lhiipbnv.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD35o_JVKg2pDeQQVav7xMAfLCAXNlMmSo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>413993740440</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.stelk.levant</string>
+	<key>PROJECT_ID</key>
+	<string>levant-93ff2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>levant-93ff2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:413993740440:ios:a0000b148de4567fe3c8ed</string>
+</dict>
+</plist>

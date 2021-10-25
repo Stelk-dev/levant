@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Levant</string>
+    <string name="facebook_app_id">1063658804406123</string>
+    <string name="fb_login_protocol_scheme">fb1063658804406123</string>
+</resources>
