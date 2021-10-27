@@ -7,6 +7,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:levant/auth/service/getRoute.dart';
+import 'package:flash/flash.dart';
 
 class Auth {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -52,24 +53,36 @@ class Auth {
   Future dialogErrorAuth({String value = "", required BuildContext context}) {
     print("######### AUTHENTICATION ERROR:\n$value");
 
-    return showDialog(
-        context: context,
-        builder: (_) =>
-            AlertDialog(title: Text("Errore"), content: Text(value)));
+    return showFlash(
+      context: context,
+      duration: Duration(seconds: 5),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          onTap: () => controller.dismiss(),
+          backgroundColor: Colors.red,
+          margin: EdgeInsets.all(15),
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          forwardAnimationCurve: Curves.easeInOut,
+          borderRadius: BorderRadius.circular(17),
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              value,
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   // Future sendEmailConfirmation() async {
   //   await auth.currentUser.sendEmailVerification();
-  // }
-
-  // Future<bool> resetPassword(String email, BuildContext context) async {
-  //   try {
-  //     await auth.sendPasswordResetEmail(email: email);
-  //     return true;
-  //   } catch (e) {
-  //     dialogErrorAuth(value: e.message, context: context);
-  //     return false;
-  //   }
   // }
 
   //#region Auth-social
@@ -92,8 +105,8 @@ class Auth {
           await auth.signInWithCredential(credential);
       return account.user;
     } catch (e) {
-      print(e);
-      return null; // Some Errors
+      FirebaseAuthException msg = e as FirebaseAuthException;
+      return msg.message;
     }
   }
 
@@ -108,10 +121,8 @@ class Auth {
         final account = await auth.signInWithCredential(credential);
         return account.user;
       case FacebookLoginStatus.cancelledByUser:
-        print("Cancel");
         return null;
       case FacebookLoginStatus.error:
-        print("Error: " + result.errorMessage);
         return result.errorMessage;
     }
   }
@@ -124,7 +135,8 @@ class Auth {
           email: email, password: password);
       return account.user;
     } catch (e) {
-      return e;
+      FirebaseAuthException msg = e as FirebaseAuthException;
+      return msg.message;
     }
   }
 
@@ -139,7 +151,8 @@ class Auth {
       await auth.currentUser!.updateDisplayName(name);
       return account.user;
     } catch (e) {
-      return e;
+      FirebaseAuthException msg = e as FirebaseAuthException;
+      return msg.message;
     }
   }
   //#endregion

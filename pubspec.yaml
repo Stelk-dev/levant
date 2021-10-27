@@ -49,6 +49,8 @@ dependencies:
   # authentication
   flutter_facebook_login: ^3.0.0
   google_sign_in: ^5.0.1
+  validators: 
+  flash: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +81,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: MyFlutterApp
+      fonts:
+        - asset: icons/fonts/MyFlutterApp.ttf
     - family: Poppins
       fonts:
         - asset: fonts/Poppins/Poppins-Light.ttf
