@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:levant/account/profile.dart';
+import 'package:levant/modelAccount/profile.dart';
 import 'package:levant/database/storage.dart';
 
 class Db {
