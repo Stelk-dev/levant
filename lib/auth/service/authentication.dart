@@ -45,11 +45,13 @@ class Auth {
     }
 
     if (account != null && account is User) {
-      final Widget route = await GetRoute.getRouteInit();
-
       String name = account.displayName ?? data["Name"];
       profile.initProfile(
-          n: name, e: account.email!, u: account.uid, img: account.photoURL!);
+        n: name,
+        e: account.email!,
+        u: account.uid,
+        img: account.photoURL ?? "",
+      );
 
       final existProfile = await database.userExist(account.uid);
       if (!existProfile)
@@ -61,6 +63,7 @@ class Auth {
         });
 
       // Go to the specific route
+      final Widget route = await GetRoute.getRouteInit();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => route), (route) => false);
     } else {

@@ -14,11 +14,12 @@ class GetRoute {
 
     if (user != null) {
       final profile = Get.put(Profile());
+
       profile.initProfile(
         n: user.displayName!,
         e: user.email!,
         u: user.uid,
-        img: user.photoURL!,
+        img: user.photoURL ?? "",
       );
 
       return App();

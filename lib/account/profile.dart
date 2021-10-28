@@ -12,7 +12,7 @@ class Profile extends GetxController {
     required String u,
     required String img,
   }) {
-    print("INIT PROFILE:$n\n$e\n$u");
+    print("INIT PROFILE:\nName: $n\nEmail: $e\nImg: $img\nUid: $u");
 
     name = n;
     email = e;

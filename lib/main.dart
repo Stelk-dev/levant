@@ -7,6 +7,7 @@ import 'package:levant/auth/service/getRoute.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // if (Auth().auth.currentUser != null) await Auth().auth.signOut();
 
   Widget route = await GetRoute.getRouteInit();
   runApp(
