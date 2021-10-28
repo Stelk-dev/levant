@@ -10,10 +10,16 @@ class GetRoute {
   static Future<Widget> getRouteInit() async {
     final user = Auth().auth.currentUser;
 
+    print("GET ROUTE INIT:\nUser != null: ${user != null}");
+
     if (user != null) {
       final profile = Get.put(Profile());
-      profile.initProfile(n: user.displayName!, e: user.email!, u: user.uid);
-      print(profile.name);
+      profile.initProfile(
+        n: user.displayName!,
+        e: user.email!,
+        u: user.uid,
+        img: user.photoURL!,
+      );
 
       return App();
     } else

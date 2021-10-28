@@ -9,12 +9,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:levant/account/profile.dart';
 import 'package:levant/auth/service/getRoute.dart';
 import 'package:flash/flash.dart';
+import 'package:levant/database/database.dart';
 
 class Auth {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  // final database = Db();
+  final database = Db();
   final FacebookLogin facebookLogin = FacebookLogin();
   final profile = Get.put(Profile());
+
+  String uidHashcode({required String uid}) {
+    return uid.hashCode.toString();
+  }
 
   Future allAuthentication(
       String provider, Map data, BuildContext context) async {
@@ -41,8 +46,19 @@ class Auth {
 
     if (account != null && account is User) {
       final Widget route = await GetRoute.getRouteInit();
+
+      String name = account.displayName ?? data["Name"];
       profile.initProfile(
-          n: account.displayName!, e: account.email!, u: account.uid);
+          n: name, e: account.email!, u: account.uid, img: account.photoURL!);
+
+      final existProfile = await database.userExist(account.uid);
+      if (!existProfile)
+        await database.creationDb(uidHashcode(uid: account.uid), {
+          'Name': profile.name,
+          'Email': profile.email,
+          'Image': profile.imgProfile,
+          'Uid': profile.uid,
+        });
 
       // Go to the specific route
       Navigator.of(context).pushAndRemoveUntil(
