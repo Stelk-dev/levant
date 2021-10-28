@@ -26,6 +26,10 @@ class _AuthRouteState extends State<AuthRoute> {
     setState(() => _loading = false);
   }
 
+  bool buttonDisable() {
+    return !(_pass.text.isNotEmpty && _email.text.isNotEmpty);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,15 +117,14 @@ class _AuthRouteState extends State<AuthRoute> {
                               title: Text(
                                 "Accedi",
                                 style: TextStyle(
-                                  color: _pass.text.isNotEmpty &&
-                                          _email.text.isNotEmpty
-                                      ? Colors.white
-                                      : Colors.white54,
+                                  color: buttonDisable()
+                                      ? Colors.white54
+                                      : Colors.white,
                                   fontSize: 16,
                                 ),
                               ),
                               function: () {
-                                print(_key.currentState!.validate());
+                                if (buttonDisable()) return;
 
                                 if (_key.currentState!.validate()) {
                                   authentication(method: "Login", data: {
@@ -133,8 +136,7 @@ class _AuthRouteState extends State<AuthRoute> {
                               backgroundColor: Colors.blue,
                               backgroundColorDisabled: Colors.blueGrey,
                               splashColor: Colors.black.withOpacity(.2),
-                              disable: !(_pass.text.isNotEmpty &&
-                                  _email.text.isNotEmpty),
+                              disable: buttonDisable(),
                             ),
                             SizedBox(height: 16),
                             // DIVIDER

@@ -18,6 +18,7 @@ class Auth {
   Future allAuthentication(
       String provider, Map data, BuildContext context) async {
     var account; // UserCredential
+    print("Account");
 
     try {
       switch (provider) {

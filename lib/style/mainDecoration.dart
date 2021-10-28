@@ -10,12 +10,16 @@ class MainDecorationApp {
     required TextInputAction textInputAction,
     Function(String)? onChanged,
     String? Function(String?)? validator,
+    bool capitalization = false,
   }) {
     return TextFormField(
       controller: controller,
       style: TextStyle(color: Colors.white),
       keyboardType: keyboardType,
       textInputAction: textInputAction,
+      textCapitalization: capitalization
+          ? TextCapitalization.sentences
+          : TextCapitalization.none,
       obscureText: obscureText,
       onChanged: onChanged,
       validator: validator,
