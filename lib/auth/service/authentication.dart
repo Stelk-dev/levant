@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:levant/account/profile.dart';
+import 'package:levant/modelAccount/profile.dart';
 import 'package:levant/auth/service/getRoute.dart';
 import 'package:flash/flash.dart';
 import 'package:levant/database/database.dart';
@@ -59,7 +59,7 @@ class Auth {
           'Name': profile.name,
           'Email': profile.email,
           'Image': profile.imgProfile,
-          'Uid': profile.uid,
+          'Uid': profile.uid.hashCode.toString(),
         });
 
       // Go to the specific route
