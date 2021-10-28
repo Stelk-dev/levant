@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:levant/account/profile.dart';
 import 'package:levant/auth/service/getRoute.dart';
 import 'package:flash/flash.dart';
 
@@ -13,12 +14,11 @@ class Auth {
   final FirebaseAuth auth = FirebaseAuth.instance;
   // final database = Db();
   final FacebookLogin facebookLogin = FacebookLogin();
-  // final profileData = Get.put(UserProfile());
+  final profile = Get.put(Profile());
 
   Future allAuthentication(
       String provider, Map data, BuildContext context) async {
     var account; // UserCredential
-    print("Account");
 
     try {
       switch (provider) {
@@ -39,8 +39,10 @@ class Auth {
       account = "Error unexpected try again";
     }
 
-    if (account != null && account is! String) {
+    if (account != null && account is User) {
       final Widget route = await GetRoute.getRouteInit();
+      profile.initProfile(
+          n: account.displayName!, e: account.email!, u: account.uid);
 
       // Go to the specific route
       Navigator.of(context).pushAndRemoveUntil(
