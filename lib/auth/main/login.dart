@@ -85,9 +85,7 @@ class _AuthRouteState extends State<AuthRoute> {
                                   MainDecorationApp.textFormField(
                                     controller: _pass,
                                     hintText: "Password",
-                                    validator: (s) => isLength(s!, 8)
-                                        ? null
-                                        : "Inserisci una password di almeno 8 caratteri",
+                                    validator: (s) => null,
                                     suffixIcon: IconButton(
                                         icon: Icon(
                                           _visibility

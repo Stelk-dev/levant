@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:levant/modelAccount/profile.dart';
 import 'package:levant/style/mainStyle.dart';
-import 'package:touchable_opacity/touchable_opacity.dart';
 
 class AccountRoute extends StatefulWidget {
   const AccountRoute({Key? key}) : super(key: key);
@@ -13,71 +12,62 @@ class AccountRoute extends StatefulWidget {
 
 class _AccountRouteState extends State<AccountRoute> {
   final profile = Get.put(Profile());
+  int indexTickets = 0;
 
   // If in the name there are space just take the first
   String getName() {
-    return profile.name.split(' ')[0];
+    return profile.name;
   }
 
   Widget accountSection() {
-    return TouchableOpacity(
-      onTap: () {},
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(16, 16, 20, 16),
-        child: Row(
+    return Padding(
+      padding: EdgeInsets.fromLTRB(16, 24, 20, 16),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                    border: Border.all(color: Colors.black, width: 2),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                        profile.imgProfile != ""
-                            ? profile.imgProfile
-                            : "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
-                        fit: BoxFit.cover, loadingBuilder: (_, child, chunk) {
-                      return chunk == null
-                          ? child
-                          : Center(
-                              child: CircularProgressIndicator(),
-                            );
-                    }),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      getName(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
-                    ),
-                    Text(
-                      profile.email,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            Container(
+              width: MediaQuery.of(context).size.width / 3,
+              height: MediaQuery.of(context).size.width / 3,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black,
+                border: Border.all(color: Colors.black, width: 2),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                    (MediaQuery.of(context).size.width / 3) / 2),
+                child: Image.network(
+                    profile.imgProfile != ""
+                        ? profile.imgProfile
+                        : "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
+                    fit: BoxFit.cover, loadingBuilder: (_, child, chunk) {
+                  return chunk == null
+                      ? child
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                }),
+              ),
             ),
-            Icon(Icons.arrow_forward_ios_rounded, color: Colors.black54),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              getName(),
+              style: MainFontsApp.poppins_black.copyWith(
+                fontSize: 26,
+              ),
+            ),
+            Text(
+              profile.email,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
           ],
         ),
       ),
@@ -89,46 +79,59 @@ class _AccountRouteState extends State<AccountRoute> {
       height: 1,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color: Colors.grey, border: Border.all(color: Colors.grey, width: 1)),
+        border: Border.all(
+          color: Colors.grey,
+          width: 1,
+        ),
+      ),
     );
   }
 
-  Widget sectionButton({
-    required IconData icon,
-    required String title,
-  }) {
-    return TextButton(
-      onPressed: () {},
-      // style: ButtonStyle(
-      //   backgroundColor: MaterialStateProperty.all(color),
-      // ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 9),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  size: 36,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  title,
-                  style: MainFontsApp.poppins_normal
-                      .copyWith(color: Colors.black, fontSize: 18),
-                ),
-              ],
+  Widget ticketButton({required String title, required int i}) {
+    return Expanded(
+      flex: 1,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.zero),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 14),
+          backgroundColor:
+              indexTickets == i ? Colors.black : Colors.transparent,
+        ),
+        onPressed: () {
+          setState(() => indexTickets = i);
+        },
+        child: Text(
+          title,
+          style: TextStyle(
+            fontWeight: indexTickets == i ? FontWeight.bold : FontWeight.w500,
+            color:
+                indexTickets == i ? Colors.white : Colors.black.withOpacity(.6),
+            fontSize: 17,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget emptyState() {
+    return Expanded(
+      child: Center(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: Text(
+            indexTickets == 0
+                ? "Non hai biglietti al momento"
+                : "Non sei in nessuna coda al momento",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.italic,
+              color: Colors.black26,
+              fontSize: 20,
             ),
-            Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: Colors.black54,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -139,31 +142,23 @@ class _AccountRouteState extends State<AccountRoute> {
     return Container(
         child: Column(
       children: [
-        // accountSection(),
-        // divider(),
-        SizedBox(
-          height: 50,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            "Impostazioni",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
-          ),
-        ),
-        // divider(),
+        accountSection(),
         SizedBox(
           height: 30,
         ),
-        sectionButton(
-            icon: Icons.account_circle_outlined, title: "Il tuo profilo"),
-        divider(),
-        sectionButton(icon: Icons.topic, title: "Biglietti"),
-        divider(),
-        sectionButton(icon: Icons.topic, title: ""),
-        divider(),
-        sectionButton(icon: Icons.topic, title: "About Us"),
-        divider(),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.symmetric(
+                horizontal: BorderSide(color: Colors.black12, width: 2)),
+          ),
+          child: Row(
+            children: [
+              ticketButton(title: "Biglietti", i: 0),
+              ticketButton(title: "Code", i: 1),
+            ],
+          ),
+        ),
+        emptyState()
       ],
     ));
   }

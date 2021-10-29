@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:levant/main/account/account.dart';
 import 'package:levant/main/home/home.dart';
@@ -5,6 +6,7 @@ import 'package:levant/main/favourites/favourite.dart';
 import 'package:get/get.dart';
 import 'package:levant/main/map/map.dart';
 import 'package:levant/main/search/search.dart';
+import 'package:levant/main/settings/SettingsPage.dart';
 import 'package:levant/management/scrollController.dart';
 import 'package:levant/model/pageRoute.dart';
 import 'package:levant/style/mainStyle.dart';
@@ -22,7 +24,8 @@ class _AppState extends State<App> {
     RouteBottomModel(route: HomeRoute(), icon: Icons.home, label: ""),
     RouteBottomModel(route: SearchRoute(), icon: Icons.search, label: ""),
     RouteBottomModel(route: FavouriteRoute(), icon: Icons.bookmark, label: ""),
-    RouteBottomModel(route: AccountRoute(), icon: Icons.settings, label: ""),
+    RouteBottomModel(
+        route: AccountRoute(), icon: Icons.account_circle, label: ""),
   ];
   int index = 0;
 
@@ -41,7 +44,6 @@ class _AppState extends State<App> {
     PermissionStatus _permissionGranted;
 
     _serviceEnabled = await location.serviceEnabled();
-    print(_serviceEnabled);
 
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
@@ -50,21 +52,11 @@ class _AppState extends State<App> {
       if (!_serviceEnabled) return;
     }
 
-    print("Richiesta permessi");
-
     _permissionGranted = await location.hasPermission();
-    print(_permissionGranted);
 
     if (_permissionGranted == PermissionStatus.denied) {
-      try {
-        print("NEW Richiesta permessi");
-
-        _permissionGranted = await location.requestPermission();
-      } catch (e) {
-        print("Error:\n$e");
-      }
+      _permissionGranted = await location.requestPermission();
     }
-    print(_permissionGranted);
 
     if (_permissionGranted == PermissionStatus.granted)
       Navigator.of(context).push(MaterialPageRoute(builder: (_) => MapRoute()));
@@ -74,12 +66,23 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: MainColorsApp.background_color,
-        appBar: (index == pages.length - 1)
-            ? null
-            : AppBar(
-                title: Text("Levant", style: TextStyle(color: Colors.white)),
-                backgroundColor: MainColorsApp.main_color,
-              ),
+        appBar: AppBar(
+          // TODO: Implementing the SliverAppBar for better animation
+          title: Text(
+            "Levant",
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: [
+            index == (pages.length - 1)
+                ? IconButton(
+                    onPressed: () => Navigator.of(context).push(
+                        CupertinoPageRoute(builder: (_) => SettingsRoute())),
+                    icon: Icon(Icons.settings),
+                  )
+                : Container(),
+          ],
+          backgroundColor: MainColorsApp.main_color,
+        ),
         body: pages[index].route,
         floatingActionButton: index != 0
             ? Container()
