@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:levant/auth/service/errorMessage.dart';
 import 'package:levant/modelAccount/profile.dart';
 import 'package:levant/auth/service/getRoute.dart';
 import 'package:flash/flash.dart';
@@ -75,32 +76,7 @@ class Auth {
   Future dialogErrorAuth({String value = "", required BuildContext context}) {
     print("######### AUTHENTICATION ERROR:\n$value");
 
-    return showFlash(
-      context: context,
-      duration: Duration(seconds: 5),
-      builder: (context, controller) {
-        return Flash(
-          controller: controller,
-          onTap: () => controller.dismiss(),
-          backgroundColor: Colors.red,
-          margin: EdgeInsets.all(15),
-          behavior: FlashBehavior.floating,
-          position: FlashPosition.bottom,
-          forwardAnimationCurve: Curves.easeInOut,
-          borderRadius: BorderRadius.circular(17),
-          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              value,
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        );
-      },
-    );
+    return ErrorDialogComponent.dialogError(msg: value, context: context);
   }
 
   // Future sendEmailConfirmation() async {
