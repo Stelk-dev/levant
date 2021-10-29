@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:levant/auth/main/login.dart';
 import 'package:levant/auth/service/authentication.dart';
+import 'package:levant/main/settings/pages/profile/profileSettings.dart';
 
 class SettingsRoute extends StatefulWidget {
   @override
@@ -8,6 +10,8 @@ class SettingsRoute extends StatefulWidget {
 }
 
 class _SettingsRouteState extends State<SettingsRoute> {
+  bool darkMode = true;
+
   Widget sectionButton({
     required String title,
     required IconData icon,
@@ -88,7 +92,23 @@ class _SettingsRouteState extends State<SettingsRoute> {
           sectionButton(
             title: "Profilo",
             icon: Icons.account_circle_outlined,
-            function: () {},
+            function: () => Navigator.of(context).push(
+              CupertinoPageRoute(
+                builder: (_) => ProfileRouteSettings(),
+              ),
+            ),
+          ),
+          sectionButton(
+            title: "Dark mode",
+            icon: darkMode ? Icons.dark_mode : Icons.dark_mode_outlined,
+            function: () {
+              setState(() => darkMode = !darkMode);
+            },
+            isNavigatable: false,
+            // TODO: Create a dialog with
+            // Active  Disactive
+            // OR
+            // A simple moon icon which when you tipe it you can change the icon
           ),
           sectionButton(
             title: "About Us",
