@@ -1,0 +1,4 @@
+Profile --> New Page with other section
+Tickets --> New Page with the tickets and appointments 
+About Us --> New Page with other pages
+Dark Mode --> True / False

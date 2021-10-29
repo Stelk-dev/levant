@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:levant/modelAccount/profile.dart';
+import 'package:levant/style/mainStyle.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class AccountRoute extends StatefulWidget {
@@ -88,15 +89,47 @@ class _AccountRouteState extends State<AccountRoute> {
       height: 1,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: Colors.grey,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 2,
-            spreadRadius: .1,
-            color: Colors.black.withOpacity(.5),
-            offset: Offset(0, 2),
-          ),
-        ],
+          color: Colors.grey, border: Border.all(color: Colors.grey, width: 1)),
+    );
+  }
+
+  Widget sectionButton({
+    required IconData icon,
+    required String title,
+  }) {
+    return TextButton(
+      onPressed: () {},
+      // style: ButtonStyle(
+      //   backgroundColor: MaterialStateProperty.all(color),
+      // ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 9),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  size: 36,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  title,
+                  style: MainFontsApp.poppins_normal
+                      .copyWith(color: Colors.black, fontSize: 18),
+                ),
+              ],
+            ),
+            Icon(
+              Icons.arrow_forward_ios_outlined,
+              color: Colors.black54,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -106,29 +139,30 @@ class _AccountRouteState extends State<AccountRoute> {
     return Container(
         child: Column(
       children: [
-        accountSection(),
-        divider(),
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.grey,
-              width: 1,
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Change password",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Icon(Icons.arrow_forward_ios_rounded),
-            ],
+        // accountSection(),
+        // divider(),
+        SizedBox(
+          height: 50,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            "Impostazioni",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
           ),
         ),
+        // divider(),
+        SizedBox(
+          height: 30,
+        ),
+        sectionButton(
+            icon: Icons.account_circle_outlined, title: "Il tuo profilo"),
+        divider(),
+        sectionButton(icon: Icons.topic, title: "Biglietti"),
+        divider(),
+        sectionButton(icon: Icons.topic, title: ""),
+        divider(),
+        sectionButton(icon: Icons.topic, title: "About Us"),
         divider(),
       ],
     ));

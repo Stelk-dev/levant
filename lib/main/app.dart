@@ -22,7 +22,7 @@ class _AppState extends State<App> {
     RouteBottomModel(route: HomeRoute(), icon: Icons.home, label: ""),
     RouteBottomModel(route: SearchRoute(), icon: Icons.search, label: ""),
     RouteBottomModel(route: FavouriteRoute(), icon: Icons.bookmark, label: ""),
-    RouteBottomModel(route: AccountRoute(), icon: Icons.account_box, label: ""),
+    RouteBottomModel(route: AccountRoute(), icon: Icons.settings, label: ""),
   ];
   int index = 0;
 
@@ -74,10 +74,12 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: MainColorsApp.background_color,
-        appBar: AppBar(
-          title: Text("Levant", style: TextStyle(color: Colors.white)),
-          backgroundColor: MainColorsApp.main_color,
-        ),
+        appBar: (index == pages.length - 1)
+            ? null
+            : AppBar(
+                title: Text("Levant", style: TextStyle(color: Colors.white)),
+                backgroundColor: MainColorsApp.main_color,
+              ),
         body: pages[index].route,
         floatingActionButton: index != 0
             ? Container()
