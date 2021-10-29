@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:levant/modelAccount/profile.dart';
 import 'package:levant/style/mainStyle.dart';
@@ -13,11 +15,6 @@ class AccountRoute extends StatefulWidget {
 class _AccountRouteState extends State<AccountRoute> {
   final profile = Get.put(Profile());
   int indexTickets = 0;
-
-  // If in the name there are space just take the first
-  String getName() {
-    return profile.name;
-  }
 
   Widget accountSection() {
     return Padding(
@@ -39,24 +36,25 @@ class _AccountRouteState extends State<AccountRoute> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(
                     (MediaQuery.of(context).size.width / 3) / 2),
-                child: Image.network(
-                    profile.imgProfile != ""
-                        ? profile.imgProfile
-                        : "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
-                    fit: BoxFit.cover, loadingBuilder: (_, child, chunk) {
-                  return chunk == null
-                      ? child
-                      : Center(
-                          child: CircularProgressIndicator(),
-                        );
-                }),
+                child: CachedNetworkImage(
+                  imageUrl: profile.imgProfile != ""
+                      ? profile.imgProfile
+                      : "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
+                  fit: BoxFit.cover,
+                  progressIndicatorBuilder: (_, child, chunk) =>
+                      chunk.progress == null
+                          ? Image.network(child)
+                          : Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                ),
               ),
             ),
             SizedBox(
               height: 4,
             ),
             Text(
-              getName(),
+              profile.name,
               style: MainFontsApp.poppins_black.copyWith(
                 fontSize: 26,
               ),
@@ -87,7 +85,8 @@ class _AccountRouteState extends State<AccountRoute> {
     );
   }
 
-  Widget ticketButton({required String title, required int i}) {
+  Widget ticketButton(
+      {required String title, required IconData icon, required int i}) {
     return Expanded(
       flex: 1,
       child: TextButton(
@@ -102,14 +101,25 @@ class _AccountRouteState extends State<AccountRoute> {
         onPressed: () {
           setState(() => indexTickets = i);
         },
-        child: Text(
-          title,
-          style: TextStyle(
-            fontWeight: indexTickets == i ? FontWeight.bold : FontWeight.w500,
-            color:
-                indexTickets == i ? Colors.white : Colors.black.withOpacity(.6),
-            fontSize: 17,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: indexTickets == i ? Colors.white : Colors.grey),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight:
+                    indexTickets == i ? FontWeight.bold : FontWeight.w500,
+                color: indexTickets == i
+                    ? Colors.white
+                    : Colors.black.withOpacity(.6),
+                fontSize: 17,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -153,8 +163,9 @@ class _AccountRouteState extends State<AccountRoute> {
           ),
           child: Row(
             children: [
-              ticketButton(title: "Biglietti", i: 0),
-              ticketButton(title: "Code", i: 1),
+              ticketButton(
+                  title: "Biglietti", icon: FlutterIcons.ticket_ent, i: 0),
+              ticketButton(title: "Code", icon: Icons.access_time, i: 1),
             ],
           ),
         ),

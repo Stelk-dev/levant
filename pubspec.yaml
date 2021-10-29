@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   cached_network_image: ^3.0.0
   touchable_opacity: 1.2.0
+  flutter_icons: ^1.1.0
   
   # management
   get: 
