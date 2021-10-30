@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:levant/auth/main/login.dart';
 import 'package:levant/auth/service/authentication.dart';
 import 'package:levant/main/settings/pages/profile/profileSettings.dart';
@@ -55,71 +57,103 @@ class _SettingsRouteState extends State<SettingsRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back),
-                iconSize: 28,
-                color: Colors.white,
-                splashRadius: 26,
-              ),
-              SizedBox(
-                width: 12,
-              ),
-              Text(
-                "Impostazioni",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                  color: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          sectionButton(
-            title: "Profilo",
-            icon: Icons.account_circle_outlined,
-            function: () => Navigator.of(context).push(
-              CupertinoPageRoute(
-                builder: (_) => ProfileRouteSettings(),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: Icon(Icons.arrow_back),
+                            iconSize: 28,
+                            color: Colors.white,
+                            splashRadius: 26,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            "Impostazioni",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() => darkMode = !darkMode);
+                        },
+                        icon: Icon(darkMode
+                            ? Icons.dark_mode
+                            : Icons.dark_mode_outlined),
+                        iconSize: 24,
+                        color: Colors.white,
+                        splashRadius: 26,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                sectionButton(
+                  title: "Profilo",
+                  icon: Icons.account_circle_outlined,
+                  function: () => Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (_) => ProfileRouteSettings(),
+                    ),
+                  ),
+                ),
+                sectionButton(
+                  title: "Aiuto",
+                  icon: Icons.help_outline_rounded,
+                  function: () => Navigator.of(context).push(
+                    CupertinoPageRoute(
+                      builder: (_) => ProfileRouteSettings(),
+                    ),
+                  ),
+                ),
+                sectionButton(
+                  title: "Termini e condizioni",
+                  icon: Icons.info_outline,
+                  function: () => {},
+                  isNavigatable: false,
+                ),
+                sectionButton(
+                  title: "Politica sulla Privacy",
+                  icon: FlutterIcons.shield_account_outline_mco,
+                  function: () => {},
+                  isNavigatable: false,
+                ),
+                sectionButton(
+                  title: "About Us",
+                  icon: FlutterIcons.people_outline_mdi,
+                  function: () {},
+                  isNavigatable: false,
+                ),
+              ],
             ),
-          ),
-          sectionButton(
-            title: "Dark mode",
-            icon: darkMode ? Icons.dark_mode : Icons.dark_mode_outlined,
-            function: () {
-              setState(() => darkMode = !darkMode);
-            },
-            isNavigatable: false,
-            // TODO: Create a dialog with
-            // Active  Disactive
-            // OR
-            // A simple moon icon which when you tipe it you can change the icon
-          ),
-          sectionButton(
-            title: "About Us",
-            icon: Icons.info_outline,
-            function: () {},
-            isNavigatable: false,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 2),
+            // "Esci" button
+            Align(
+              alignment: Alignment.bottomLeft,
               child: TextButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.all(14)),
@@ -162,9 +196,9 @@ class _SettingsRouteState extends State<SettingsRoute> {
                     "Esci",
                     style: TextStyle(color: Colors.red, fontSize: 15),
                   )),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
