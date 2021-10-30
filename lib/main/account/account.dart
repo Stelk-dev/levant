@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+// ignore_for_file: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:levant/modelAccount/profile.dart';
@@ -17,57 +18,55 @@ class _AccountRouteState extends State<AccountRoute> {
   int indexTickets = 0;
 
   Widget accountSection() {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(16, 24, 20, 16),
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width / 3,
-              height: MediaQuery.of(context).size.width / 3,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.black,
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    (MediaQuery.of(context).size.width / 3) / 2),
-                child: CachedNetworkImage(
-                  imageUrl: profile.imgProfile != ""
-                      ? profile.imgProfile
-                      : "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
-                  fit: BoxFit.cover,
-                  progressIndicatorBuilder: (_, child, chunk) =>
-                      chunk.progress == null
-                          ? Image.network(child)
-                          : Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                ),
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 60, 0, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width / 5,
+            height: MediaQuery.of(context).size.width / 5,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
+              border: Border.all(color: Colors.black, width: 2),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  (MediaQuery.of(context).size.width / 3) / 2),
+              child: CachedNetworkImage(
+                imageUrl: profile.imgProfile != ""
+                    ? profile.imgProfile
+                    : "https://icon-library.com/images/no-profile-picture-icon/no-profile-picture-icon-13.jpg",
+                fit: BoxFit.cover,
+                progressIndicatorBuilder: (_, child, chunk) =>
+                    chunk.progress == null
+                        ? Image.network(child)
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          ),
               ),
             ),
-            SizedBox(
-              height: 4,
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          Text(
+            profile.name,
+            style: MainFontsApp.poppins_black.copyWith(
+              color: Colors.black,
+              fontSize: 22,
             ),
-            Text(
-              profile.name,
-              style: MainFontsApp.poppins_black.copyWith(
-                fontSize: 26,
-              ),
+          ),
+          Text(
+            profile.email,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey,
             ),
-            Text(
-              profile.email,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -95,8 +94,7 @@ class _AccountRouteState extends State<AccountRoute> {
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           padding: EdgeInsets.symmetric(vertical: 14),
-          backgroundColor:
-              indexTickets == i ? Colors.black : Colors.transparent,
+          backgroundColor: indexTickets == i ? Colors.black : Colors.white,
         ),
         onPressed: () {
           setState(() => indexTickets = i);
@@ -149,28 +147,45 @@ class _AccountRouteState extends State<AccountRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: [
-        accountSection(),
-        SizedBox(
-          height: 30,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.symmetric(
-                horizontal: BorderSide(color: Colors.black12, width: 2)),
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          floating: false,
+          pinned: true,
+          snap: false,
+          expandedHeight: 300,
+          backgroundColor: Colors.white,
+          flexibleSpace: FlexibleSpaceBar(
+            title: accountSection(),
+            centerTitle: true,
+            titlePadding: EdgeInsets.zero,
+            collapseMode: CollapseMode.none,
           ),
-          child: Row(
-            children: [
-              ticketButton(
-                  title: "Biglietti", icon: FlutterIcons.ticket_ent, i: 0),
-              ticketButton(title: "Code", icon: Icons.access_time, i: 1),
-            ],
+          bottom: PreferredSize(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.symmetric(
+                  horizontal: BorderSide(
+                    color: Colors.black12,
+                    width: 2,
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  ticketButton(
+                      title: "Biglietti", icon: FlutterIcons.ticket_ent, i: 0),
+                  ticketButton(title: "Code", icon: Icons.access_time, i: 1),
+                ],
+              ),
+            ),
+            preferredSize: Size.fromHeight(0),
           ),
         ),
-        emptyState()
+        SliverFillRemaining(
+          child: emptyState(),
+        ),
       ],
-    ));
+    );
   }
 }
