@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // ignore_for_file: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
+import 'package:levant/main/account/style/accountPageStyle.dart';
 import 'package:levant/model/modelAccount/profile.dart';
 import 'package:levant/style/mainStyle.dart';
 
@@ -16,6 +17,8 @@ class AccountRoute extends StatefulWidget {
 class _AccountRouteState extends State<AccountRoute> {
   final profile = Get.put(Profile());
   int indexTickets = 0;
+
+  final AccountPageWidget _accountPageWidget = AccountPageWidget();
 
   Widget accountSection() {
     return Container(
@@ -128,26 +131,6 @@ class _AccountRouteState extends State<AccountRoute> {
     );
   }
 
-  Widget emptyState() {
-    return Center(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
-        child: Text(
-          indexTickets == 0
-              ? "Non hai biglietti al momento"
-              : "Non sei in nessuna coda al momento",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            fontStyle: FontStyle.italic,
-            color: Colors.black26,
-            fontSize: 20,
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -188,8 +171,11 @@ class _AccountRouteState extends State<AccountRoute> {
           ),
         ),
         SliverFillRemaining(
-          child: emptyState(),
-        ),
+            child: indexTickets == 0
+                ? _accountPageWidget.listviewTickets(
+                    data: profile.tickets["Biglietti"]!, context: context)
+                : _accountPageWidget.listviewTickets(
+                    data: profile.tickets["Code"]!, context: context)),
       ],
     );
   }
