@@ -17,8 +17,11 @@ class Auth {
   final FacebookLogin facebookLogin = FacebookLogin();
   final profile = Get.put(Profile());
 
-  String uidHashcode({required String uid}) {
-    return uid.hashCode.toString();
+  String idDb() {
+    if (auth.currentUser == null)
+      return "0";
+    else
+      return auth.currentUser!.uid.hashCode.toString();
   }
 
   Future allAuthentication(
@@ -53,13 +56,18 @@ class Auth {
         img: account.photoURL ?? "",
       );
 
-      final existProfile = await database.userExist(account.uid);
+      final existProfile = await database.userExist(uid: account.uid);
       if (!existProfile)
-        await database.creationDb(uidHashcode(uid: account.uid), {
+        await database.creationDb(idDb(), {
+          // Data db
           'Name': profile.name,
           'Email': profile.email,
           'Image': profile.imgProfile,
-          'Uid': profile.uid.hashCode.toString(),
+          'Uid': idDb(),
+          'Tickets': {
+            "Biglietti": [],
+            "Code": [],
+          },
         });
 
       // Go to the specific route

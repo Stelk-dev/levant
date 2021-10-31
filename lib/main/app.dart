@@ -8,6 +8,7 @@ import 'package:levant/main/map/map.dart';
 import 'package:levant/main/search/search.dart';
 import 'package:levant/main/settings/SettingsPage.dart';
 import 'package:levant/management/scrollController.dart';
+import 'package:levant/model/modelAccount/profile.dart';
 import 'package:levant/model/pageRoute.dart';
 import 'package:levant/style/mainStyle.dart';
 import 'package:location/location.dart';
@@ -64,6 +65,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(Profile()).printDataProfile();
+
     return Scaffold(
         backgroundColor: MainColorsApp.background_color,
         appBar: AppBar(

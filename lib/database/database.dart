@@ -10,13 +10,14 @@ class Db {
   final String id = "users";
   final user = Get.put(Profile());
 
-  Future userExist(String uid) async {
+  Future userExist({required String uid}) async {
     bool exist = false;
     await database
         .collection(id)
         .doc(uid)
         .get()
         .then((value) => exist = value.exists);
+
     return exist;
   }
 
@@ -31,7 +32,7 @@ class Db {
   }
 
   // Data from specific document
-  Future dataDocument(String doc) async {
+  Future dataDocument({required String doc}) async {
     print("Calling: (database | dataDocument)");
 
     final d = await database.collection(id).doc(doc).get();
