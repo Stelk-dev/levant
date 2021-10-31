@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore_for_file: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
-import 'package:levant/modelAccount/profile.dart';
+import 'package:levant/model/modelAccount/profile.dart';
 import 'package:levant/style/mainStyle.dart';
 
 class AccountRoute extends StatefulWidget {

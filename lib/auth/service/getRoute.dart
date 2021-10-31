@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:levant/modelAccount/profile.dart';
+import 'package:levant/model/modelAccount/profile.dart';
 import 'package:levant/auth/main/login.dart';
 import 'package:levant/auth/service/authentication.dart';
 import 'package:levant/main/app.dart';
