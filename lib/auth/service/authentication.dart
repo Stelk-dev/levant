@@ -9,7 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:levant/auth/service/errorMessage.dart';
 import 'package:levant/modelAccount/profile.dart';
 import 'package:levant/auth/service/getRoute.dart';
-import 'package:flash/flash.dart';
 import 'package:levant/database/database.dart';
 
 class Auth {
