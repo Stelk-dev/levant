@@ -29,8 +29,13 @@ class _AccountRouteState extends State<AccountRoute> {
             height: MediaQuery.of(context).size.width / 5,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.black,
-              border: Border.all(color: Colors.black, width: 2),
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                  color: Colors.black54,
+                ),
+              ],
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(
@@ -55,14 +60,14 @@ class _AccountRouteState extends State<AccountRoute> {
           Text(
             profile.name,
             style: MainFontsApp.poppins_black.copyWith(
-              color: Colors.black,
-              fontSize: 22,
+              color: Colors.white,
+              fontSize: 21,
             ),
           ),
           Text(
             profile.email,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               color: Colors.grey,
             ),
           ),
@@ -90,7 +95,7 @@ class _AccountRouteState extends State<AccountRoute> {
       flex: 1,
       child: TextButton(
         style: TextButton.styleFrom(
-          shape: const RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.zero),
           ),
           padding: EdgeInsets.symmetric(vertical: 14),
@@ -124,21 +129,19 @@ class _AccountRouteState extends State<AccountRoute> {
   }
 
   Widget emptyState() {
-    return Expanded(
-      child: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: Text(
-            indexTickets == 0
-                ? "Non hai biglietti al momento"
-                : "Non sei in nessuna coda al momento",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontStyle: FontStyle.italic,
-              color: Colors.black26,
-              fontSize: 20,
-            ),
+    return Center(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: Text(
+          indexTickets == 0
+              ? "Non hai biglietti al momento"
+              : "Non sei in nessuna coda al momento",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontStyle: FontStyle.italic,
+            color: Colors.black26,
+            fontSize: 20,
           ),
         ),
       ),
@@ -154,7 +157,7 @@ class _AccountRouteState extends State<AccountRoute> {
           pinned: true,
           snap: false,
           expandedHeight: 300,
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromRGBO(32, 32, 32, 1),
           flexibleSpace: FlexibleSpaceBar(
             title: accountSection(),
             centerTitle: true,
@@ -164,17 +167,19 @@ class _AccountRouteState extends State<AccountRoute> {
           bottom: PreferredSize(
             child: Container(
               decoration: BoxDecoration(
-                border: Border.symmetric(
-                  horizontal: BorderSide(
-                    color: Colors.black12,
-                    width: 2,
-                  ),
-                ),
+                boxShadow: [
+                  BoxShadow(
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    color: Colors.black54,
+                    offset: Offset(0, -2),
+                  )
+                ],
               ),
               child: Row(
                 children: [
                   ticketButton(
-                      title: "Biglietti", icon: FlutterIcons.ticket_ent, i: 0),
+                      title: "Biglietti", icon: FlutterIcons.ticket_faw, i: 0),
                   ticketButton(title: "Code", icon: Icons.access_time, i: 1),
                 ],
               ),
