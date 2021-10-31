@@ -33,7 +33,9 @@ class Db {
 
   // Data from specific document
   Future dataDocument({required String doc}) async {
-    print("Calling: (database | dataDocument)");
+    print("##########");
+    print("Get data from specific document (database | dataDocument)");
+    print("##########");
 
     final d = await database.collection(id).doc(doc).get();
     return d.data();

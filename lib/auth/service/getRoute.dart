@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:levant/database/database.dart';
+import 'package:levant/model/modelAccount/db_profile.dart';
 import 'package:levant/model/modelAccount/profile.dart';
 import 'package:levant/auth/main/login.dart';
 import 'package:levant/auth/service/authentication.dart';
@@ -13,11 +14,15 @@ class GetRoute {
   static Future<Widget> getRouteInit() async {
     final userExist = await db.userExist(uid: Auth().idDb());
 
-    print("###########\nUSER EXIST: $userExist");
+    print("###########");
+    print("GetRouteInit: UserExist = $userExist");
+    print("###########");
 
     if (userExist) {
       final dataUser = await db.dataDocument(doc: Auth().idDb());
-      Get.put(Profile()).initProfileFromDb(data: dataUser);
+      final profile = DatabaseProfileModel.fromJson(data: dataUser);
+      Get.put(Profile()).initProfile(data: profile);
+      Get.put(Profile()).printDataProfile();
 
       return App();
     } else

@@ -65,8 +65,6 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(Profile()).printDataProfile();
-
     return Scaffold(
         backgroundColor: MainColorsApp.background_color,
         appBar: AppBar(

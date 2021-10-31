@@ -7,8 +7,9 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:levant/auth/service/errorMessage.dart';
+import 'package:levant/main/app.dart';
+import 'package:levant/model/modelAccount/db_profile.dart';
 import 'package:levant/model/modelAccount/profile.dart';
-import 'package:levant/auth/service/getRoute.dart';
 import 'package:levant/database/database.dart';
 
 class Auth {
@@ -49,31 +50,27 @@ class Auth {
 
     if (account != null && account is User) {
       String name = account.displayName ?? data["Name"];
-      profile.initProfile(
-        n: name,
-        e: account.email!,
-        u: account.uid,
-        img: account.photoURL ?? "",
-      );
 
       final existProfile = await database.userExist(uid: account.uid);
-      if (!existProfile)
-        await database.creationDb(idDb(), {
-          // Data db
-          'Name': profile.name,
-          'Email': profile.email,
-          'Image': profile.imgProfile,
-          'Uid': idDb(),
-          'Tickets': {
-            "Biglietti": [],
-            "Code": [],
-          },
-        });
+      if (!existProfile) {
+        final databaseProfileModel = DatabaseProfileModel(
+          name: name,
+          email: account.email!,
+          img: account.photoURL!,
+          uid: idDb(),
+          tickets: Map<String, List>.from({"Biglietti": [], "Code": []}),
+        );
 
-      // Go to the specific route
-      final Widget route = await GetRoute.getRouteInit();
+        profile.initProfile(data: databaseProfileModel);
+
+        await database.creationDb(idDb(), databaseProfileModel.toJson());
+      }
+      profile.printDataProfile();
+
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => route), (route) => false);
+        MaterialPageRoute(builder: (_) => App()),
+        (route) => false,
+      );
     } else {
       if (account != null) dialogErrorAuth(value: account, context: context);
       return null;

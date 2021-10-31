@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:levant/auth/service/authentication.dart';
+import 'package:levant/model/modelAccount/db_profile.dart';
 
 class Profile extends GetxController {
   String name = "";
@@ -8,34 +9,21 @@ class Profile extends GetxController {
   String imgProfile = "";
   Map<String, List> tickets = {};
 
-  // Used when user is new, used in authentication
-  void initProfile({
-    required String n,
-    required String e,
-    required String u,
-    required String img,
-  }) {
-    name = n;
-    email = e;
-    uid = u;
-    imgProfile = img;
-
-    update();
-  }
-
   // Used when user is authenticated in GetRoute
-  void initProfileFromDb({required Map<String, dynamic> data}) {
+  void initProfile({required DatabaseProfileModel data}) {
     uid = Auth().auth.currentUser!.uid;
-    name = data["Name"];
-    email = data["Email"];
-    imgProfile = data["Image"];
-    tickets = Map<String, List>.from(data["Tickets"]);
+    name = data.name;
+    email = data.email;
+    imgProfile = data.img;
+    tickets = data.tickets;
 
     update();
   }
 
   void printDataProfile() {
+    print("###########");
     print(
-        "INIT PROFILE:\nName: $name\nEmail: $email\nImg: $imgProfile\nUid: $uid\nTickets: $tickets");
+        "PROFILE DATA:\nName: $name\nEmail: $email\nImg: $imgProfile\nUid: $uid\nTickets: $tickets");
+    print("###########");
   }
 }
