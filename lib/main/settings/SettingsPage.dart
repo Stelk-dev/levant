@@ -5,6 +5,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:levant/auth/main/login.dart';
 import 'package:levant/auth/service/authentication.dart';
 import 'package:levant/main/settings/pages/profile/profileSettings.dart';
+import 'package:levant/style/mainDecoration.dart';
 
 class SettingsRoute extends StatefulWidget {
   @override
@@ -57,148 +58,110 @@ class _SettingsRouteState extends State<SettingsRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: Icon(Icons.arrow_back),
-                            iconSize: 28,
-                            color: Colors.white,
-                            splashRadius: 26,
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            "Impostazioni",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() => darkMode = !darkMode);
-                        },
-                        icon: Icon(darkMode
-                            ? Icons.dark_mode
-                            : Icons.dark_mode_outlined),
-                        iconSize: 24,
-                        color: Colors.white,
-                        splashRadius: 26,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                sectionButton(
-                  title: "Profilo",
-                  icon: Icons.account_circle_outlined,
-                  function: () => Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (_) => ProfileRouteSettings(),
-                    ),
-                  ),
-                ),
-                sectionButton(
-                  title: "Aiuto",
-                  icon: Icons.help_outline_rounded,
-                  function: () => Navigator.of(context).push(
-                    CupertinoPageRoute(
-                      builder: (_) => ProfileRouteSettings(),
-                    ),
-                  ),
-                ),
-                sectionButton(
-                  title: "Termini e condizioni",
-                  icon: Icons.info_outline,
-                  function: () => {},
-                  isNavigatable: false,
-                ),
-                sectionButton(
-                  title: "Politica sulla Privacy",
-                  icon: FlutterIcons.shield_account_outline_mco,
-                  function: () => {},
-                  isNavigatable: false,
-                ),
-                sectionButton(
-                  title: "About Us",
-                  icon: FlutterIcons.people_outline_mdi,
-                  function: () {},
-                  isNavigatable: false,
-                ),
-              ],
-            ),
-            // "Esci" button
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: TextButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.all(14)),
-                    overlayColor: MaterialStateProperty.all(
-                      Colors.redAccent.withOpacity(.1),
-                    ),
-                  ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              MainDecorationApp.appBarAndGoBackAction(
+                title: "Impostazioni",
+                context: context,
+                action: IconButton(
                   onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                              backgroundColor: Color.fromRGBO(32, 32, 32, 1),
-                              title: Text(
-                                "Vuoi veramente uscire?",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Auth().auth.signOut();
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => AuthRoute()),
-                                        (route) => false);
-                                  },
-                                  child: Text(
-                                    "Conferma",
-                                    style: TextStyle(color: Colors.redAccent),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: Text("Annulla"),
-                                ),
-                              ],
-                            ));
+                    setState(() => darkMode = !darkMode);
                   },
-                  child: Text(
-                    "Esci",
-                    style: TextStyle(color: Colors.red, fontSize: 15),
-                  )),
-            )
-          ],
-        ),
+                  icon: Icon(
+                      darkMode ? Icons.dark_mode : Icons.dark_mode_outlined),
+                  iconSize: 24,
+                  color: Colors.white,
+                  splashRadius: 26,
+                ),
+              ),
+              sectionButton(
+                title: "Profilo",
+                icon: Icons.account_circle_outlined,
+                function: () => Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (_) => ProfileRouteSettings(),
+                  ),
+                ),
+              ),
+              sectionButton(
+                title: "Aiuto",
+                icon: Icons.help_outline_rounded,
+                function: () => Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (_) => ProfileRouteSettings(),
+                  ),
+                ),
+              ),
+              sectionButton(
+                title: "Termini e condizioni",
+                icon: Icons.info_outline,
+                function: () => {},
+                isNavigatable: false,
+              ),
+              sectionButton(
+                title: "Politica sulla Privacy",
+                icon: FlutterIcons.shield_account_outline_mco,
+                function: () => {},
+                isNavigatable: false,
+              ),
+              sectionButton(
+                title: "About Us",
+                icon: FlutterIcons.people_outline_mdi,
+                function: () {},
+                isNavigatable: false,
+              ),
+            ],
+          ),
+          // "Esci" button
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: TextButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(EdgeInsets.all(14)),
+                  overlayColor: MaterialStateProperty.all(
+                    Colors.redAccent.withOpacity(.1),
+                  ),
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                            backgroundColor: Color.fromRGBO(32, 32, 32, 1),
+                            title: Text(
+                              "Vuoi veramente uscire?",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Auth().auth.signOut();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => AuthRoute()),
+                                      (route) => false);
+                                },
+                                child: Text(
+                                  "Conferma",
+                                  style: TextStyle(color: Colors.redAccent),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text("Annulla"),
+                              ),
+                            ],
+                          ));
+                },
+                child: Text(
+                  "Esci",
+                  style: TextStyle(color: Colors.red, fontSize: 15),
+                )),
+          )
+        ],
       ),
     );
   }

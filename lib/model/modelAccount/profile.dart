@@ -20,6 +20,18 @@ class Profile extends GetxController {
     update();
   }
 
+  void changeData({
+    required String n,
+    required String e,
+    required String img,
+  }) {
+    name = n;
+    email = e;
+    imgProfile = img;
+
+    update();
+  }
+
   void printDataProfile() {
     print("###########");
     print(

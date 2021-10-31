@@ -34,10 +34,11 @@ dependencies:
   cached_network_image: ^3.0.0
   touchable_opacity: 1.2.0
   flutter_icons: ^1.1.0
+  image_picker: ^0.8.4+4
   
   # management
   get: 
-  
+
   # maps
   google_maps_flutter:
   location: 

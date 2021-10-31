@@ -26,7 +26,7 @@ class DatabaseProfileModel {
     return DatabaseProfileModel(
       name: data["Name"],
       email: data["Email"],
-      img: data["Img"] ?? "",
+      img: data["Image"] ?? "",
       uid: data["Uid"],
       tickets: Map<String, List>.from(data["Tickets"]),
     );

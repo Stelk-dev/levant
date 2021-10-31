@@ -9,7 +9,9 @@ class Storage {
 
   // Get data from path
   Future getData(String fixPath, String nameFile) async {
-    print("Creation: (storage | getData)");
+    print("###########");
+    print("Storage --> getData");
+    print("###########");
     final url = await storage
         .ref()
         .child('$fixImagesPath/$fixPath/$nameFile')
@@ -19,7 +21,9 @@ class Storage {
 
   // Upload data in a folder/nameOfData
   Future<void> uploadData(String fixPath, String nameFile, File file) async {
-    print("Creation: (storage | uploadData)");
+    print("###########");
+    print("Storage --> uploadData");
+    print("###########");
     await storage
         .ref()
         .child('$fixImagesPath/$fixPath/$nameFile')

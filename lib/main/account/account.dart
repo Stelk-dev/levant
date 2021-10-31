@@ -135,39 +135,43 @@ class _AccountRouteState extends State<AccountRoute> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverAppBar(
-          floating: false,
-          pinned: true,
-          snap: false,
-          expandedHeight: 300,
-          backgroundColor: Color.fromRGBO(32, 32, 32, 1),
-          flexibleSpace: FlexibleSpaceBar(
-            title: accountSection(),
-            centerTitle: true,
-            titlePadding: EdgeInsets.zero,
-            collapseMode: CollapseMode.none,
-          ),
-          bottom: PreferredSize(
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    spreadRadius: 5,
-                    blurRadius: 10,
-                    color: Colors.black54,
-                    offset: Offset(0, -2),
-                  )
-                ],
-              ),
-              child: Row(
-                children: [
-                  ticketButton(
-                      title: "Biglietti", icon: FlutterIcons.ticket_faw, i: 0),
-                  ticketButton(title: "Code", icon: Icons.access_time, i: 1),
-                ],
-              ),
+        GetBuilder<Profile>(
+          builder: (_) => SliverAppBar(
+            floating: false,
+            pinned: true,
+            snap: false,
+            expandedHeight: 300,
+            backgroundColor: Color.fromRGBO(32, 32, 32, 1),
+            flexibleSpace: FlexibleSpaceBar(
+              title: accountSection(),
+              centerTitle: true,
+              titlePadding: EdgeInsets.zero,
+              collapseMode: CollapseMode.none,
             ),
-            preferredSize: Size.fromHeight(0),
+            bottom: PreferredSize(
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 5,
+                      blurRadius: 10,
+                      color: Colors.black54,
+                      offset: Offset(0, -2),
+                    )
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    ticketButton(
+                        title: "Biglietti",
+                        icon: FlutterIcons.ticket_faw,
+                        i: 0),
+                    ticketButton(title: "Code", icon: Icons.access_time, i: 1),
+                  ],
+                ),
+              ),
+              preferredSize: Size.fromHeight(0),
+            ),
           ),
         ),
         SliverFillRemaining(
