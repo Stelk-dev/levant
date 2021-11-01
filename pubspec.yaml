@@ -38,6 +38,7 @@ dependencies:
   
   # management
   get: 
+  package_info: ^2.0.2
 
   # maps
   google_maps_flutter:
