@@ -75,9 +75,6 @@ class _IntroScreenRouteState extends State<IntroScreenRoute> {
                     width: 50,
                     child: Image.asset("assets/icons/icon_levant.png"),
                   ),
-                  SizedBox(
-                    height: 8,
-                  ),
                   Text(
                     "Levant",
                     style: MainFontsApp.poppins_extra_bold.copyWith(
@@ -89,7 +86,7 @@ class _IntroScreenRouteState extends State<IntroScreenRoute> {
               ),
             ),
             SizedBox(
-              height: 12,
+              height: 20,
             ),
             Expanded(
               child: Column(
