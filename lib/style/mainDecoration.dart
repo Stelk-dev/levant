@@ -184,4 +184,43 @@ class MainDecorationApp {
       ),
     );
   }
+
+  static Widget sectionOtpionButton({
+    required String title,
+    required IconData icon,
+    required Function()? function,
+    bool isNavigatable = true,
+  }) {
+    return TextButton(
+      onPressed: function,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Icon(icon, color: Colors.white, size: 26),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  title,
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+              ],
+            ),
+            isNavigatable
+                ? Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    color: Colors.white,
+                    size: 18,
+                  )
+                : Container(),
+          ],
+        ),
+      ),
+    );
+  }
 }

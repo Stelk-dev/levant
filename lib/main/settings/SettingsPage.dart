@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:levant/auth/main/login.dart';
 import 'package:levant/auth/service/authentication.dart';
+import 'package:levant/intro/introScreen.dart';
+import 'package:levant/main/settings/pages/help/helpPage.dart';
+import 'package:levant/main/settings/pages/notification/notificationPage.dart';
 import 'package:levant/main/settings/pages/profile/profileSettings.dart';
 import 'package:levant/style/mainDecoration.dart';
 import 'package:package_info/package_info.dart';
@@ -16,45 +19,6 @@ class SettingsRoute extends StatefulWidget {
 class _SettingsRouteState extends State<SettingsRoute> {
   bool darkMode = true;
   String _packageVersion = "";
-
-  Widget sectionButton({
-    required String title,
-    required IconData icon,
-    required Function()? function,
-    bool isNavigatable = true,
-  }) {
-    return TextButton(
-      onPressed: function,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Icon(icon, color: Colors.white, size: 26),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  title,
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                ),
-              ],
-            ),
-            isNavigatable
-                ? Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.white,
-                    size: 18,
-                  )
-                : Container(),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   void initState() {
@@ -94,7 +58,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
                     ),
                   ),
                   // #region Section buttons
-                  sectionButton(
+                  MainDecorationApp.sectionOtpionButton(
                     title: "Profilo",
                     icon: Icons.account_circle_outlined,
                     function: () => Navigator.of(context).push(
@@ -103,34 +67,48 @@ class _SettingsRouteState extends State<SettingsRoute> {
                       ),
                     ),
                   ),
-                  sectionButton(
+                  MainDecorationApp.sectionOtpionButton(
                     title: "Aiuto",
                     icon: Icons.help_outline_rounded,
                     function: () => Navigator.of(context).push(
                       CupertinoPageRoute(
-                        builder: (_) => ProfileRouteSettings(),
+                        builder: (_) => HelpRouteSettings(),
                       ),
                     ),
                   ),
-                  sectionButton(
+                  MainDecorationApp.sectionOtpionButton(
                     title: "Notifiche",
                     icon: Icons.notifications_outlined,
-                    function: () => {},
+                    function: () => Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (_) => NotificationRouteSettings(),
+                      ),
+                    ),
                   ),
-                  sectionButton(
-                    title: "Termini e condizioni",
+                  MainDecorationApp.sectionOtpionButton(
+                    title: "Come usare l'app",
                     icon: Icons.info_outline,
+                    function: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => IntroScreenRoute(),
+                      ),
+                    ),
+                    isNavigatable: false,
+                  ),
+                  MainDecorationApp.sectionOtpionButton(
+                    title: "Termini e condizioni",
+                    icon: Icons.assignment_outlined,
                     function: () => {},
                     isNavigatable: false,
                   ),
-                  sectionButton(
+                  MainDecorationApp.sectionOtpionButton(
                     title: "Politica sulla Privacy",
                     icon: FlutterIcons.shield_account_outline_mco,
                     function: () => {},
                     isNavigatable: false,
                   ),
-                  sectionButton(
-                    title: "About Us",
+                  MainDecorationApp.sectionOtpionButton(
+                    title: "Noi di Levant",
                     icon: FlutterIcons.people_outline_mdi,
                     function: () {},
                     isNavigatable: false,

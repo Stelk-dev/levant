@@ -12,6 +12,9 @@ class MainColorsApp {
 
   /// Color.fromRGBO(220, 248, 134, 1)
   static const Color logo_yellow_color = Color.fromRGBO(220, 248, 134, 1);
+
+  /// Color.fromRGBO(125, 66, 181, 1)
+  static const Color logo_purple_color = Color.fromRGBO(125, 66, 181, 1);
 }
 
 class MainFontsApp {

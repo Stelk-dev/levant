@@ -166,7 +166,11 @@ class _AccountRouteState extends State<AccountRoute> {
                         title: "Biglietti",
                         icon: FlutterIcons.ticket_faw,
                         i: 0),
-                    ticketButton(title: "Code", icon: Icons.access_time, i: 1),
+                    ticketButton(
+                      title: "Code",
+                      icon: Icons.access_time,
+                      i: 1,
+                    ),
                   ],
                 ),
               ),
@@ -175,11 +179,16 @@ class _AccountRouteState extends State<AccountRoute> {
           ),
         ),
         SliverFillRemaining(
-            child: indexTickets == 0
-                ? _accountPageWidget.listviewTickets(
-                    data: profile.tickets["Biglietti"]!, context: context)
-                : _accountPageWidget.listviewTickets(
-                    data: profile.tickets["Code"]!, context: context)),
+          child: indexTickets == 0
+              ? _accountPageWidget.listviewTickets(
+                  data: profile.tickets["Biglietti"]!,
+                  context: context,
+                )
+              : _accountPageWidget.listviewTails(
+                  data: profile.tickets["Code"]!,
+                  context: context,
+                ),
+        ),
       ],
     );
   }
