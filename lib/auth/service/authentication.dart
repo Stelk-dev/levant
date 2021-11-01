@@ -51,7 +51,7 @@ class Auth {
     if (account != null && account is User) {
       String name = account.displayName ?? data["Name"];
 
-      final existProfile = await database.userExist(uid: account.uid);
+      final existProfile = await database.userExist(uid: idDb());
       if (!existProfile) {
         final databaseProfileModel = DatabaseProfileModel(
           name: name,
@@ -68,7 +68,7 @@ class Auth {
       profile.printDataProfile();
 
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => App()),
+        MaterialPageRoute(builder: (_) => App(existProfile: existProfile)),
         (route) => false,
       );
     } else {

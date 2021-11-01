@@ -85,16 +85,16 @@ class _SettingsRouteState extends State<SettingsRoute> {
                       ),
                     ),
                   ),
-                  MainDecorationApp.sectionOtpionButton(
-                    title: "Come usare l'app",
-                    icon: Icons.info_outline,
-                    function: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => IntroScreenRoute(),
-                      ),
-                    ),
-                    isNavigatable: false,
-                  ),
+                  // MainDecorationApp.sectionOtpionButton(
+                  //   title: "Come usare l'app",
+                  //   icon: Icons.info_outline,
+                  //   function: () => Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (_) => IntroScreenRoute(),
+                  //     ),
+                  //   ),
+                  //   isNavigatable: false,
+                  // ),
                   MainDecorationApp.sectionOtpionButton(
                     title: "Termini e condizioni",
                     icon: Icons.assignment_outlined,

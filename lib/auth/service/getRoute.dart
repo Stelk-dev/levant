@@ -24,7 +24,9 @@ class GetRoute {
       Get.put(Profile()).initProfile(data: profile);
       Get.put(Profile()).printDataProfile();
 
-      return App();
+      return App(
+        existProfile: true,
+      );
     } else
       return AuthRoute();
   }

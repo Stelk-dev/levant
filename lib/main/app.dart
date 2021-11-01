@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:levant/intro/introScreen.dart';
 import 'package:levant/main/account/account.dart';
 import 'package:levant/main/home/home.dart';
 import 'package:levant/main/favourites/favourite.dart';
@@ -8,13 +9,14 @@ import 'package:levant/main/map/map.dart';
 import 'package:levant/main/search/search.dart';
 import 'package:levant/main/settings/SettingsPage.dart';
 import 'package:levant/management/scrollController.dart';
-import 'package:levant/model/modelAccount/profile.dart';
 import 'package:levant/model/pageRoute.dart';
 import 'package:levant/style/mainStyle.dart';
 import 'package:location/location.dart';
 
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  final bool existProfile;
+  // If profile exist show dialog "How App Works"
+  const App({Key? key, required this.existProfile}) : super(key: key);
 
   @override
   _AppState createState() => _AppState();
@@ -36,6 +38,17 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _scrollController.initcontroller();
+    howAppWorks();
+  }
+
+  Future<void> howAppWorks() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    if (!widget.existProfile)
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => IntroScreenRoute(),
+        ),
+      );
   }
 
   void navigationAndGetLocation() async {
