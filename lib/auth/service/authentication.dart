@@ -50,21 +50,19 @@ class Auth {
 
     if (account != null && account is User) {
       String name = account.displayName ?? data["Name"];
+      final databaseProfileModel = DatabaseProfileModel(
+        name: name,
+        email: account.email!,
+        img: account.photoURL!,
+        uid: idDb(),
+        tickets: Map<String, List>.from({"Biglietti": [], "Code": []}),
+      );
 
       final existProfile = await database.userExist(uid: idDb());
-      if (!existProfile) {
-        final databaseProfileModel = DatabaseProfileModel(
-          name: name,
-          email: account.email!,
-          img: account.photoURL!,
-          uid: idDb(),
-          tickets: Map<String, List>.from({"Biglietti": [], "Code": []}),
-        );
-
-        profile.initProfile(data: databaseProfileModel);
-
+      if (!existProfile)
         await database.creationDb(idDb(), databaseProfileModel.toJson());
-      }
+
+      profile.initProfile(data: databaseProfileModel);
       profile.printDataProfile();
 
       Navigator.of(context).pushAndRemoveUntil(
